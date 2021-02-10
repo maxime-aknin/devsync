@@ -1,4 +1,4 @@
-package file_watcher
+package main
 
 import (
 	"encoding/json"
@@ -20,7 +20,7 @@ type fsEvent struct {
 
 // Watch the directory at path and remove root_dir
 // from file paths
-func Watch(path string, root_dir string) {
+func watch(path string, root_dir string) {
 
 	// creates a new file watcher
 	watcher, _ = fsnotify.NewWatcher()
