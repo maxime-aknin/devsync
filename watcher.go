@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/fsnotify/fsnotify"
+	"github.com/r3labs/sse/v2"
 )
 
 var watcher *fsnotify.Watcher
@@ -20,7 +21,7 @@ type fsEvent struct {
 
 // Watch the directory at path and remove root_dir
 // from file paths
-func watch(path string, root_dir string) {
+func watch(path string, root_dir string, server *sse.Server) {
 
 	// creates a new file watcher
 	watcher, _ = fsnotify.NewWatcher()
@@ -67,6 +68,9 @@ func watch(path string, root_dir string) {
 				}
 				serialized, _ := json.Marshal(e)
 				fmt.Println(string(serialized))
+				server.Publish("messages", &sse.Event{
+					Data: serialized,
+				})
 
 			// watch for errors
 			case err := <-watcher.Errors:

@@ -1,0 +1,4 @@
+{
+    "watch": "public/css",
+    "root": "public"
+}

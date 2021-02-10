@@ -1,3 +1,4 @@
-tmp/*
-!tmp/.gitkeep
 config.json
+public/css/*
+!public/css/reset.css
+!public/css/style.css
