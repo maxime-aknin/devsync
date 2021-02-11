@@ -1,9 +1,12 @@
-const evtSource = new EventSource("http://127.0.0.1:8123/events?stream=messages");
+const evtSource = new EventSource("http://localhost:8123/events?stream=messages");
+const eventList = document.getElementById("messages-list");
 
 evtSource.onmessage = function(event) {
 	const newElement = document.createElement("li");
-	const eventList = document.getElementById("list");
-
-	newElement.textContent = "message: " + event.data;
+	const json = JSON.parse(event.data)
+	console.log('new message', event)
+	newElement.innerHTML = `
+	<pre>${JSON.stringify(json, null, 2)}</pre>
+	`
 	eventList.appendChild(newElement);
 }

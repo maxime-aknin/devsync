@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/r3labs/sse/v2"
 )
 
 var watcher *fsnotify.Watcher
@@ -21,7 +20,7 @@ type fsEvent struct {
 
 // Watch the directory at path and remove root_dir
 // from file paths
-func watch(path string, root_dir string, server *sse.Server) {
+func watch(path string, root_dir string, ch chan []byte) {
 
 	// creates a new file watcher
 	watcher, _ = fsnotify.NewWatcher()
@@ -33,8 +32,8 @@ func watch(path string, root_dir string, server *sse.Server) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Root dir is %v\n", root_dir)
-	fmt.Printf("Watching %v...\n", path)
+	fmt.Printf("Public dir is %v\n", root_dir)
+	fmt.Printf("Watched dir is %v...\n", path)
 
 	// starting at the root of the project, walk each file/directory searching for
 	// directories
@@ -42,45 +41,36 @@ func watch(path string, root_dir string, server *sse.Server) {
 		fmt.Println("ERROR", err)
 	}
 
-	done := make(chan bool)
-
-	go func() {
-		for {
-			select {
-			// watch for events
-			case event := <-watcher.Events:
-				t := fmt.Sprint(event.Op)
-				p := event.Name
-				// if it's a new dir, we watch it
-				if "CREATE" == t {
-					i, _ := os.Stat(p)
-					if i.IsDir() {
-						fmt.Println("New directory created, adding watcher...")
-						if err := filepath.Walk(p, watchDir); err != nil {
-							fmt.Println("ERROR", err)
-						}
+	for {
+		select {
+		// watch for events
+		case event := <-watcher.Events:
+			t := fmt.Sprint(event.Op)
+			p := event.Name
+			// if it's a new dir, we watch it
+			if "CREATE" == t {
+				i, _ := os.Stat(p)
+				if i.IsDir() {
+					fmt.Println("New directory created, adding watcher...")
+					if err := filepath.Walk(p, watchDir); err != nil {
+						fmt.Println("ERROR", err)
 					}
 				}
-
-				e := &fsEvent{
-					Type: t,
-					Path: strings.Replace(p, root_dir, "", 1),
-				}
-				serialized, _ := json.Marshal(e)
-				fmt.Println(string(serialized))
-				server.Publish("messages", &sse.Event{
-					Data: serialized,
-				})
-
-			// watch for errors
-			case err := <-watcher.Errors:
-				fmt.Println("ERROR", err)
 			}
+
+			e := &fsEvent{
+				Type: t,
+				Path: strings.Replace(p, root_dir, "", 1),
+			}
+			serialized, _ := json.Marshal(e)
+			fmt.Println(string(serialized))
+			ch <- serialized
+
+		// watch for errors
+		case err := <-watcher.Errors:
+			fmt.Println("ERROR", err)
 		}
-	}()
-
-	<-done
-
+	}
 }
 
 // watchDir gets run as a walk func, searching for directories to add watchers to
