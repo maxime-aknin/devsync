@@ -7,12 +7,6 @@
 	<title>sync</title>
 	<link rel="stylesheet" href="/css/reset.css">
 	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/custom.css">
-    <script src="/js/utils.js"></script>
-    <script src="/js/event-emitter.js"></script>
-    <script>
-        window.eventbus = new EventEmitter();
-    </script>
 </head>
 <body>
 	<div class="container">
@@ -22,8 +16,22 @@
             <h1>Messages: </h1>
             <ul id="messages-list"></ul>
         </div>			
-	</div>			
-	<script src="/js/sse-client.js"></script>
-    <script src="/js/css-manager.js"></script>
+	</div>
+    <script>
+        window.DEV_SYNC = {
+            debug: false,
+            stream: 'http://127.0.0.1:8123/events?stream=messages',
+            worker: '/js/shared_worker.js?v=2'
+        }
+    </script>
+	<script src="/dist/bundle.js"></script>
+    <script>
+        window.DEV_SYNC.eventbus.on('message', function(json) {
+            const eventList = document.getElementById("messages-list");
+            const newElement = document.createElement("li");
+            newElement.innerHTML = `<pre>${JSON.stringify(json, null, 2)}</pre>`
+            eventList.appendChild(newElement);
+        });
+    </script>
 </body>
 </html>

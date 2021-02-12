@@ -3,5 +3,7 @@
     // the folder to watch
     "watch": "public/css",
     // public dir, root dir of your app
-    "root": "public"
+    "root": "public",
+    // the server port
+    "port": 8123
 }

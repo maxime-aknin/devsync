@@ -11,6 +11,7 @@ import (
 type config struct {
 	Watch string `json:"watch"`
 	Root  string `json:"root"`
+	Port  int    `json:"port"`
 }
 
 func newConfig() *config {

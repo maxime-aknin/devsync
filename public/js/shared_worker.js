@@ -1,3 +1,4 @@
+// goto to chrome://inspect/#workers to see these logs
 let ports = [];
 let debug = false
 let EventSourceSingleton = (function () {
@@ -25,15 +26,15 @@ onconnect = function(e) {
         source.onopen = function (e){
 			console.log(e)
             var message = "Connection open"
-            port.postMessage({type: 'open' , msg: 'Connection open'});
+            port.postMessage({type: 'open' , msg: 'Connection opened !'});
         }
         source.onerror = function(e){
 			console.log(e)
-            port.postMessage({type: 'error' , msg: e});
+            port.postMessage({type: 'error' , msg: 'error connecting to server'});
+            source.close()
         }
         source.onmessage = function(e){
 			console.log(e)
-            // var message = JSON.parse(event.data);
             notifyAll({type: 'message' , msg: e.data});
         }
     }

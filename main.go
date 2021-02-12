@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	. "fmt"
 	"log"
 	"net/http"
 
@@ -23,8 +23,8 @@ func main() {
 	go handleMessages(server, messages)
 	go watch(c.Watch, c.Root, messages)
 
-	fmt.Println("SSE server running on port 8123...")
-	log.Fatal(http.ListenAndServe(":8123", mux))
+	Println("SSE server running on port 8123...")
+	log.Fatal(http.ListenAndServe(Sprintf(":%d", c.Port), mux))
 }
 
 func handleMessages(server *sse.Server, ch <-chan []byte) {
