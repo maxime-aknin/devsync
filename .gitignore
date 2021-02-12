@@ -1,5 +1,8 @@
-config.json
-/dev-sync
+.idea
+.DS_Store
+devsync.json
+/bin/*
+!/bin/.gitkeep
 public/dist
 public/css/*
 !public/css/reset.css

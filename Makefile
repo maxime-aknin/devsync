@@ -1,19 +1,18 @@
 .SILENT: start build serve js
 
 build:
-	go build *.go
+	go build -o bin/devsync *.go
 
 start: build
-	./dev-sync
+	./bin/devsync
 
 serve:
 	# you must have symfony cli installed
 	symfony serve --dir=public	
 
 js:
-	rm public/dist/compiled/*
-	rm public/dist/bundle.js
-	# babel-minify
-	minify public/js/src -d public/dist/compiled
+	rm -f public/dist/bundle.js
 	# concat cli
-	concat-cli -f public/dist/compiled/* -o public/dist/bundle.js
+	concat-cli -f public/js/src/* -o public/dist/sync-bundle.js
+	# babel-minify
+	minify public/dist/bundle.js -o public/dist/sync-bundle.min.js

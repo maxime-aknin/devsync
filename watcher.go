@@ -27,13 +27,13 @@ func watch(path string, root_dir string, ch chan<- []byte) {
 	defer watcher.Close()
 
 	root_dir, _ = filepath.Abs(root_dir)
-	path, _ = filepath.Abs(path)
+	path = root_dir + path
 	_, err := os.Stat(path)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("Public dir is %v\n", root_dir)
-	fmt.Printf("Watched dir is %v...\n", path)
+	// fmt.Printf("Public dir: %v\n", root_dir)
+	fmt.Printf("Watching %v ...\n", path)
 
 	// starting at the root of the project, walk each file/directory searching for
 	// directories

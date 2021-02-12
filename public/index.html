@@ -24,7 +24,7 @@
             worker: '/js/shared_worker.js?v=2'
         }
     </script>
-	<script src="/dist/bundle.js"></script>
+	<script src="/dist/sync-bundle.min.js"></script>
     <script>
         window.DEV_SYNC.eventbus.on('message', function(json) {
             const eventList = document.getElementById("messages-list");

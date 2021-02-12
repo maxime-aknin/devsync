@@ -23,7 +23,7 @@ func main() {
 	go handleMessages(server, messages)
 	go watch(c.Watch, c.Root, messages)
 
-	Println("SSE server running on port 8123...")
+	Println("Server running on port 8123...")
 	log.Fatal(http.ListenAndServe(Sprintf(":%d", c.Port), mux))
 }
 
