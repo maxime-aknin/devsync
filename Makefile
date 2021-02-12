@@ -1,6 +1,14 @@
+.SILENT: start build serve js
 
 build:
 	go build *.go
+
+start: build
+	./dev-sync
+
+serve:
+	# you must have symfony cli installed
+	symfony serve --dir=public	
 
 js:
 	rm public/dist/compiled/*

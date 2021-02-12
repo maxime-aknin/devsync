@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# you must have symfony cli installed
-symfony serve --dir=public
