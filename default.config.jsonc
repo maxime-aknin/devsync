@@ -1,0 +1,7 @@
+// copy this file to config.json
+{
+    // the folder to watch
+    "watch": "public/css",
+    // public dir, root dir of your app
+    "root": "public"
+}

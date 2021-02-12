@@ -3,6 +3,7 @@ html {
 }
 
 body {
+	background: #fafafa;
 	height: 100%;
 	font-size: 16px;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -19,14 +20,30 @@ h1 {
 
 .container {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	width: 980px;
+	width: 1380px;
 	max-width: 100%;
-	padding: 10px 20px;
 	margin: auto;
+	padding: 10px 0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.left {
+    flex-grow: 1;
+}
+
+.right {
+    width: 300px;
+	background: rgb(211, 221, 194);
 }
 
 #messages-list {
@@ -41,10 +58,13 @@ h1 {
 
 pre {
 	background: #f9ebeb;
-	padding: 20px;
+	padding: 0.5rem;
 	border-radius: 5px;
 	color: #c84141;
-	margin: 1rem 0;
+	margin: 0.5rem 0;
 	box-shadow: 1px 1px 4px #aaa;
 	font-weight: bold;
+    overflow: hidden;
+    font-size: .85rem;
+    white-space: normal;
 }

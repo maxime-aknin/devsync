@@ -1,4 +1,5 @@
 config.json
+/dev-sync
 public/css/*
 !public/css/reset.css
 !public/css/style.css

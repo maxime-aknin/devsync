@@ -20,7 +20,7 @@ type fsEvent struct {
 
 // Watch the directory at path and remove root_dir
 // from file paths
-func watch(path string, root_dir string, ch chan []byte) {
+func watch(path string, root_dir string, ch chan<- []byte) {
 
 	// creates a new file watcher
 	watcher, _ = fsnotify.NewWatcher()

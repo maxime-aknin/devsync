@@ -20,16 +20,17 @@ func main() {
 	mux.HandleFunc("/events", server.HTTPHandler)
 
 	messages := make(chan []byte)
-	go func() {
-		for {
-			msg := <-messages
-			server.Publish("messages", &sse.Event{
-				Data: msg,
-			})
-		}
-	}()
+	go handleMessages(server, messages)
 	go watch(c.Watch, c.Root, messages)
 
 	fmt.Println("SSE server running on port 8123...")
 	log.Fatal(http.ListenAndServe(":8123", mux))
+}
+
+func handleMessages(server *sse.Server, ch <-chan []byte) {
+	for msg := range ch {
+		server.Publish("messages", &sse.Event{
+			Data: msg,
+		})
+	}
 }
