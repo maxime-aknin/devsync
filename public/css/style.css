@@ -3,37 +3,37 @@ html {
 }
 
 body {
-	background-color: #fafafa;
 	height: 100%;
 	font-size: 16px;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-h1 {
+.message-title {
 	padding: 10px;
 	background: #333;
 	color: #fff;
-	border-radius: 5px;
 	width: 100%;
 	text-align: center;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 
 .container {
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	/* align-items: center; */
 	height: 100%;
 	width: 1380px;
 	max-width: 100%;
 	margin: auto;
-	padding: 10px;
 }
 
 .column {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     height: 100%;
 }
@@ -44,6 +44,7 @@ h1 {
 
 .right {
     width: 300px;
+    background: #f4f4f4;
 }
 
 #messages-list {
@@ -52,7 +53,8 @@ h1 {
 	flex-grow: 1;
 	width: 100%;
 	list-style: none;
-	padding: 0 20px;
+	padding: 20px;
+    margin: 0;
 	border-radius: 5px;
 }
 

@@ -1,0 +1,12 @@
+{
+  "name": "devsync",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/maxime-aknin/devsync",
+  "author": "Maxime Aknin <aknin.maxime@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-minify": "^0.5.1",
+    "concat-cli": "^4.0.0"
+  }
+}

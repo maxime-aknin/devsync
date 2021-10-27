@@ -1,7 +1,10 @@
-// copy this file to config.json
+// copy this file to devsync.json
 {
-    // the folder to watch
-    "watch": "public/css",
+    // the folders to watch, simple glob pattern is supported
+    "watch": [
+      "css/*.css",
+      "*.html"
+    ],
     // public dir, root dir of your app
     "root": "public",
     // the server port

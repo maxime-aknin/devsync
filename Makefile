@@ -11,8 +11,11 @@ serve:
 	symfony serve --dir=public	
 
 js:
+	echo "bundling js files..."
 	rm -f public/dist/bundle.js
+	mkdir -p public/dist
+	touch public/dist/sync-bundle.js
 	# concat cli
-	concat-cli -f public/js/src/* -o public/dist/sync-bundle.js
+	npx concat-cli -f public/js/src/* -o public/dist/sync-bundle.js
 	# babel-minify
-	minify public/dist/bundle.js -o public/dist/sync-bundle.min.js
+	npx minify public/dist/sync-bundle.js -o public/dist/sync-bundle.min.js

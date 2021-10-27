@@ -11,9 +11,10 @@
 <body>
 	<div class="container">
         <div class="column left">
+            <h1>Devsync playground</h1>
         </div>			
         <div class="column right">
-            <h1>Messages: </h1>
+            <div class="message-title">Messages</div>
             <ul id="messages-list"></ul>
         </div>			
 	</div>
@@ -30,7 +31,7 @@
             const eventList = document.getElementById("messages-list");
             const newElement = document.createElement("li");
             newElement.innerHTML = `<pre>${JSON.stringify(json, null, 2)}</pre>`
-            eventList.appendChild(newElement);
+            eventList.prepend(newElement);
         });
     </script>
 </body>

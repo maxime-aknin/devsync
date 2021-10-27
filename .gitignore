@@ -7,3 +7,5 @@ public/dist
 public/css/*
 !public/css/reset.css
 !public/css/style.css
+node_modules
+yarn.lock

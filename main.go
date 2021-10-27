@@ -19,11 +19,14 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/events", server.HTTPHandler)
 
-	messages := make(chan []byte)
-	go handleMessages(server, messages)
-	go watch(c.Watch, c.Root, messages)
+	for _, glob := range c.Globs {
+		messages := make(chan []byte)
+		go handleMessages(server, messages)
+		// Println("Watching: " + c.Root + glob)
+		go watch(glob, c.Root, messages)
+	}
 
-	Println("Server running on port 8123...")
+	Printf("Server running on port %d...\n", c.Port)
 	log.Fatal(http.ListenAndServe(Sprintf(":%d", c.Port), mux))
 }
 
