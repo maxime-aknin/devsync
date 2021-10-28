@@ -1,3 +1,4 @@
+.PHONY: js serve
 .SILENT: start build serve js
 
 build:
@@ -12,10 +13,10 @@ serve:
 
 js:
 	echo "bundling js files..."
-	rm -f public/dist/bundle.js
+	rm -rf public/dist
 	mkdir -p public/dist
 	touch public/dist/sync-bundle.js
 	# concat cli
-	npx concat-cli -f public/js/src/* -o public/dist/sync-bundle.js
+	npx concat-cli -f js/* -o public/dist/sync-bundle.js
 	# babel-minify
 	npx minify public/dist/sync-bundle.js -o public/dist/sync-bundle.min.js

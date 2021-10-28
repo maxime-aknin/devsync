@@ -12,6 +12,7 @@
 	<div class="container">
         <div class="column left">
             <h1>Devsync playground</h1>
+            <h2>test</h2>
         </div>			
         <div class="column right">
             <div class="message-title">Messages</div>
@@ -22,7 +23,10 @@
         window.DEV_SYNC = {
             debug: false,
             stream: 'http://127.0.0.1:8123/events?stream=messages',
-            worker: '/js/shared_worker.js?v=2'
+            worker: '/shared_worker.js?v=2',
+            // when a change on these types of files occur, trigger an ajax request 
+            // to refresh the html by performing a domDiff
+            html_extensions: ['.html']
         }
     </script>
 	<script src="/dist/sync-bundle.min.js"></script>

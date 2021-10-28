@@ -19,7 +19,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/events", server.HTTPHandler)
 
-	for _, glob := range c.Globs {
+	for _, glob := range c.Paths {
 		messages := make(chan []byte)
 		go handleMessages(server, messages)
 		// Println("Watching: " + c.Root + glob)

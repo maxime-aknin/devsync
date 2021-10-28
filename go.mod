@@ -1,9 +1,8 @@
-module github.com/maxime-akni/dev-sync
+module max/devsync
 
-go 1.15
+go 1.16
 
 require (
-	github.com/fsnotify/fsnotify v1.4.9
-	github.com/r3labs/sse/v2 v2.3.0
-	github.com/traefik/yaegi v0.9.13 // indirect
+	github.com/fsnotify/fsnotify v1.5.1
+	github.com/r3labs/sse/v2 v2.3.6
 )

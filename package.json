@@ -8,5 +8,6 @@
   "devDependencies": {
     "babel-minify": "^0.5.1",
     "concat-cli": "^4.0.0"
-  }
+  },
+  "dependencies": {}
 }

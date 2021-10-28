@@ -1,12 +1,15 @@
 // copy this file to devsync.json
 {
-    // the folders to watch, simple glob pattern is supported
+    // the folders to watch, simple glob patterns are supported
     "watch": [
-      "css/*.css",
-      "*.html"
+      "dir", // this will watch any file in dir and its subdirectories
+      "dir/**/*.css", // this will watch for .css files in dir and its subdirectories
+      "dir/*.html", // this will watch for html file in dir, but not in subdirectories
+      "fake/dir" // This will print a warning if the directory does not exists
     ],
     // public dir, root dir of your app
     "root": "public",
     // the server port
     "port": 8123
+
 }

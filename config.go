@@ -10,7 +10,7 @@ import (
 )
 
 type config struct {
-	Globs []string `json:"watch"`
+	Paths []string `json:"watch"`
 	Root  string   `json:"root"`
 	Port  int      `json:"port"`
 }
@@ -51,9 +51,9 @@ func newConfig() *config {
 	}
 
 	// add a / at beginning of watch dirs path if needed
-	for i := 0; i < len(c.Globs); i++ {
-		if 0 != strings.Index(c.Globs[i], "/") {
-			c.Globs[i] = "/" + c.Globs[i]
+	for i := 0; i < len(c.Paths); i++ {
+		if 0 != strings.Index(c.Paths[i], "/") {
+			c.Paths[i] = "/" + c.Paths[i]
 		}
 	}
 
