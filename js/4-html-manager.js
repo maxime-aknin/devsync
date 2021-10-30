@@ -1,6 +1,7 @@
 (function() {
 
     let dd = new diffDOM.DiffDOM()
+    let {stringToObj} = diffDOM
     // abort controller
     let controller = null
 
@@ -35,9 +36,17 @@
     });
 
     const diff = debounce(newHtml => {
-        const oldHtml = get_current_html()
-        const d = dd.diff(oldHtml, newHtml)
-        console.log(d)
+
+        // get dom objects from html
+        const parser = new DOMParser();
+        // const oldDom = parser.parseFromString(get_current_html(), "text/html");
+        const newDom = parser.parseFromString(newHtml, "text/html");
+
+        const selector = DEV_SYNC.html_selector || 'body';
+        const oldEl = document.querySelector(selector);
+        const newEl = newDom.querySelector(selector);
+        const d = dd.diff(oldEl, newEl);
+        dd.apply(oldEl, d);
     })
 
     ready(function() {

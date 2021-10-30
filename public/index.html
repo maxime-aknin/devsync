@@ -10,9 +10,9 @@
 </head>
 <body>
 	<div class="container">
-        <div class="column left">
+        <div id="refreshable" class="column left">
             <h1>Devsync playground</h1>
-            <h2>test</h2>
+            <h2>It works ? yes it does !</h2>
         </div>			
         <div class="column right">
             <div class="message-title">Messages</div>
@@ -26,7 +26,11 @@
             worker: '/shared_worker.js?v=2',
             // when a change on these types of files occur, trigger an ajax request 
             // to refresh the html by performing a domDiff
-            html_extensions: ['.html']
+            html_extensions: ['.html'],
+            // specify a dom node that will be the only one updated when html changes
+            // this can be usefull if you have some js loading dynamic content on the page 
+            // and you don't want to 
+            html_selector: '#refreshable'
         }
     </script>
 	<script src="/dist/sync-bundle.min.js"></script>
