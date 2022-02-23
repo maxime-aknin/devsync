@@ -13,7 +13,7 @@ function debounce(func, timeout = 0) {
         if (timer) {
             clearTimeout(timer);
         }
-        timer = setTimeout(next, timeout > 0 ? timeout : 300);
+        timer = setTimeout(next, timeout);
     };
 }
 

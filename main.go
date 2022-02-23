@@ -4,12 +4,18 @@ import (
 	. "fmt"
 	"log"
 	"net/http"
+	"runtime"
 
 	"github.com/r3labs/sse/v2"
 )
 
 // main
 func main() {
+
+	if runtime.GOOS == "darwin" {
+		increaseFileDescriptorsLimit()
+	}
+
 	c := newConfig()
 
 	server := sse.New()
@@ -23,7 +29,7 @@ func main() {
 		messages := make(chan []byte)
 		go handleMessages(server, messages)
 		// Println("Watching: " + c.Root + glob)
-		go watch(glob, c.Root, messages)
+		go watch(glob, c, messages)
 	}
 
 	Printf("Server running on port %d...\n", c.Port)

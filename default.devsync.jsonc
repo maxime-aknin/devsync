@@ -11,5 +11,19 @@
     "root": "public",
     // the server port
     "port": 8123
+    // options for html watch behaviour
+    "html": {
+        // when a change on these types of files occur, trigger an ajax request 
+        // to refresh the html by performing a domDiff
+        "extensions": [
+            ".html",
+            ".tpl"
+        ],
+        // only apply the diff to these selectors, avoid messing with js modified content 
+        // on each change
+        "selectors": [
+            "#refreshable"
+        ]
+    },
 
 }

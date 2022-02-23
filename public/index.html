@@ -12,8 +12,30 @@
 	<div class="container">
         <div id="refreshable" class="column left">
             <h1>Devsync playground</h1>
-            <h2>It works ? yes it does !</h2>
-        </div>			
+            <h2>It works ??</h2>
+
+	        <div id="container2">
+		        <div class="dummy"></div>
+		        <div id="test" class="contact-button bg-blue white br-pill ph2 pv1 b flex items-center">
+			        <!-- begin /Users/maxime/work/sport-orthese/prestashop/themes/so/components/icon/icon.tpl -->
+			        <svg class="icon w2 h-auto white fill-white" viewBox="0 0 40 40">
+				        <use href="/img/all-sprite.svg#app-phone" xlink:href="/img/all-sprite.svg#app-phone"></use>
+			        </svg>
+			        <!-- end /Users/maxime/work/sport-orthese/prestashop/themes/so/components/icon/icon.tpl -->
+			        <a href="tel:+33972101004" class="white f7">+33 (0) 9 72 10 10 04</a>
+			        <div class="pl3 h-100">
+				        <span class="blue-xlight dib br h-100 bw1"></span>
+			        </div>
+			        <div id="show-contact-info" class="pl2 pr1 pointer h-100 flex items-center">
+				        <!-- begin /Users/maxime/work/sport-orthese/prestashop/themes/so/components/icon/icon.tpl -->
+				        <svg class="icon xxxsmall white fill-blue" viewBox="0 0 40 40">
+					        <use href="/img/all-sprite.svg#app-chevron-down" xlink:href="/img/all-sprite.svg#app-chevron-down"></use>
+				        </svg>
+				        <!-- end /Users/maxime/work/sport-orthese/prestashop/themes/so/components/icon/icon.tpl -->
+			        </div>
+		        </div>
+	        </div>
+		</div>
         <div class="column right">
             <div class="message-title">Messages</div>
             <ul id="messages-list"></ul>
@@ -23,17 +45,10 @@
         window.DEV_SYNC = {
             debug: false,
             stream: 'http://127.0.0.1:8123/events?stream=messages',
-            worker: '/shared_worker.js?v=2',
-            // when a change on these types of files occur, trigger an ajax request 
-            // to refresh the html by performing a domDiff
-            html_extensions: ['.html'],
-            // specify a dom node that will be the only one updated when html changes
-            // this can be usefull if you have some js loading dynamic content on the page 
-            // and you don't want to 
-            html_selector: '#refreshable'
+            worker: '/shared_worker.js?v=2'
         }
     </script>
-	<script src="/dist/sync-bundle.min.js"></script>
+	<script src="/dist/sync-bundle.js"></script>
     <script>
         window.DEV_SYNC.eventbus.on('message', function(json) {
             const eventList = document.getElementById("messages-list");

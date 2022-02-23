@@ -10,9 +10,10 @@ import (
 )
 
 type config struct {
-	Paths []string `json:"watch"`
-	Root  string   `json:"root"`
-	Port  int      `json:"port"`
+	Paths []string            `json:"watch"`
+	Root  string              `json:"root"`
+	Port  int                 `json:"port"`
+	Html  map[string][]string `json:"html"`
 }
 
 func newConfig() *config {

@@ -11,19 +11,27 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
+// about "too many opened files on mac":
+// https://github.com/fsnotify/fsnotify/issues/129
+// https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c
+// https://apple.stackexchange.com/questions/366187/why-does-setting-the-hard-limit-for-maxfiles-to-unlimited-using-launchctl-lim
+// NOTE: ulimit file created to tackle the problem.
+
 // if I do this the watcher is shared each time I call watch
 // var watcher *fsnotify.Watcher
 
 type fsEvent struct {
-	Type string `json:"type"`
-	Path string `json:"path"`
-	Ext  string `json:"ext"`
+	Type string              `json:"type"`
+	Path string              `json:"path"`
+	Ext  string              `json:"ext"`
+	Html map[string][]string `json:"html"`
 }
 
 // Watch the directory (or glob) at path and remove root_dir
 // from file paths
-func watch(watch_path string, root_dir string, ch chan<- []byte) {
+func watch(watch_path string, c *config, ch chan<- []byte) {
 
+	root_dir := c.Root
 	// fmt.Println("creating new watcher for " + path)
 	// creates a new file watcher
 	watcher, _ := fsnotify.NewWatcher()
@@ -77,7 +85,11 @@ func watch(watch_path string, root_dir string, ch chan<- []byte) {
 			p := event.Name
 			// if it's a new dir, we watch it
 			if recursive && t == "CREATE" {
-				i, _ := os.Stat(p)
+				i, err := os.Stat(p)
+				// prevent segmentation fault errors
+				if err != nil {
+					continue
+				}
 				if i.IsDir() {
 					fmt.Println("New directory created, adding watcher...")
 					if err := filepath.Walk(p, recursiveWatch(watcher)); err != nil {
@@ -96,6 +108,7 @@ func watch(watch_path string, root_dir string, ch chan<- []byte) {
 				Type: t,
 				Path: strings.Replace(p, root_dir, "", 1),
 				Ext:  ext,
+				Html: c.Html,
 			}
 
 			serialized, _ := json.Marshal(e)
