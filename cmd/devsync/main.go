@@ -3,6 +3,7 @@ package main
 import (
 	. "fmt"
 	"log"
+	devsync "max/devsync/internal"
 	"net/http"
 	"runtime"
 
@@ -13,10 +14,10 @@ import (
 func main() {
 
 	if runtime.GOOS == "darwin" {
-		increaseFileDescriptorsLimit()
+		devsync.IncreaseFileDescriptorsLimit()
 	}
 
-	c := newConfig()
+	c := devsync.NewConfig()
 
 	server := sse.New()
 	// do not replay each messages on new connection
@@ -29,7 +30,7 @@ func main() {
 		messages := make(chan []byte)
 		go handleMessages(server, messages)
 		// Println("Watching: " + c.Root + glob)
-		go watch(glob, c, messages)
+		go devsync.Watch(glob, c, messages)
 	}
 
 	Printf("Server running on port %d...\n", c.Port)

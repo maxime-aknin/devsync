@@ -1,4 +1,4 @@
-package main
+package devsync
 
 import (
 	"encoding/json"
@@ -29,7 +29,7 @@ type fsEvent struct {
 
 // Watch the directory (or glob) at path and remove root_dir
 // from file paths
-func watch(watch_path string, c *config, ch chan<- []byte) {
+func Watch(watch_path string, c *config, ch chan<- []byte) {
 
 	root_dir := c.Root
 	// fmt.Println("creating new watcher for " + path)

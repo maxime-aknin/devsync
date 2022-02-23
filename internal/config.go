@@ -1,4 +1,4 @@
-package main
+package devsync
 
 import (
 	"encoding/json"
@@ -16,7 +16,7 @@ type config struct {
 	Html  map[string][]string `json:"html"`
 }
 
-func newConfig() *config {
+func NewConfig() *config {
 
 	// config file can be in the same dir or in parent dir
 	use_parent_dir := false

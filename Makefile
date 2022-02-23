@@ -1,30 +1,22 @@
 .PHONY: js serve so so_js
-.SILENT: start build serve js so so_js
+.SILENT: start build serve js
 
 build:
-	go build -o bin/devsync *.go
+	go build -o devsync cmd/devsync/main.go
 
 start: build
-	./bin/devsync
+	./devsync
 
 serve:
 	# you must have symfony cli installed
-	symfony serve --dir=public	
+	symfony serve --dir=web	
 
 js:
 	echo "bundling js files..."
-	rm -rf public/dist
-	mkdir -p public/dist
-	touch public/dist/sync-bundle.js
+	rm -rf web/dist
+	mkdir web/dist
+	touch web/dist/sync-bundle.js
 	# concat cli
-	npx concat-cli -f js/* -o public/dist/sync-bundle.js
+	node web/node_modules/.bin/concat-cli -f web/js/* -o web/dist/sync-bundle.js
 	# babel-minify
-	npx minify public/dist/sync-bundle.js -o public/dist/sync-bundle.min.js
-
-so: build
-	cp bin/devsync ../sport-orthese/bin/
-
-so_js: js
-	cp public/dist/sync-bundle.min.js ../sport-orthese/prestashop/modules/max_devsync/views/js
-	cp public/dist/sync-bundle.js ../sport-orthese/prestashop/modules/max_devsync/views/js
-
+	node web/node_modules/.bin/babel-minify web/dist/sync-bundle.js -o web/dist/sync-bundle.min.js

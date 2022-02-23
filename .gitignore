@@ -1,8 +1,7 @@
 .idea
 .DS_Store
 devsync.json
-/bin/*
-!/bin/.gitkeep
+/devsync
 public/dist
 public/css/*
 !public/css/reset.css

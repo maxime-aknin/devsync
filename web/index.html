@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Demo Page</title>
+	<link rel="stylesheet" href="/css/reset.css">
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<div class="container">
+        <div id="refreshable" class="column left">
+            <div class="flex items-center justify-center h-100">
+                <div>
+                    <h1>Devsync demo</h1>
+                    <p>Change any html in this div or any css to see the live reload in action</p>
+                </div>
+            </div>
+		</div>
+        <div class="column right">
+            <div class="message-title">Messages</div>
+            <ul id="messages-list"></ul>
+        </div>			
+	</div>
+    <script>
+        window.DEV_SYNC = {
+            debug: false,
+            stream: 'http://127.0.0.1:8123/events?stream=messages',
+            worker: '/shared_worker.js?v=' + (new Date()).getTime()
+        }
+    </script>
+	<script src="/dist/sync-bundle.js"></script>
+    <script>
+        window.DEV_SYNC.eventbus.on('message', function(json) {
+            const eventList = document.getElementById("messages-list");
+            const newElement = document.createElement("li");
+            newElement.innerHTML = `<pre>${JSON.stringify(json, null, 2)}</pre>`
+            eventList.prepend(newElement);
+        });
+    </script>
+</body>
+</html>

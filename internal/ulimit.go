@@ -1,4 +1,4 @@
-package main
+package devsync
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ const MAX_FILES = 20000
 // also see: https://github.com/docker/go-units/blob/master/ulimit.go
 // Note: if you have error like: "setrlimit failed invalid argument", you need to adjust launchctl limit maxfiles settings first...
 // see https://elisabethirgens.github.io/notes/2019/12/ulimit-and-limit/
-func increaseFileDescriptorsLimit() {
+func IncreaseFileDescriptorsLimit() {
 
 	// Ulimit is a shell builtin command to set Rlimit
 	// https://man7.org/linux/man-pages/man2/setrlimit.2.html
