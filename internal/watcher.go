@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/fsnotify/fsnotify"
@@ -30,6 +31,10 @@ type fsEvent struct {
 // Watch the directory (or glob) at path and remove root_dir
 // from file paths
 func Watch(watch_path string, c *config, ch chan<- []byte) {
+
+	if runtime.GOOS == "darwin" {
+		increaseFileDescriptorsLimit()
+	}
 
 	root_dir := c.Root
 	// fmt.Println("creating new watcher for " + path)

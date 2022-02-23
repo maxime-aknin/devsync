@@ -5,17 +5,12 @@ import (
 	"log"
 	devsync "max/devsync/internal"
 	"net/http"
-	"runtime"
 
 	"github.com/r3labs/sse/v2"
 )
 
 // main
 func main() {
-
-	if runtime.GOOS == "darwin" {
-		devsync.IncreaseFileDescriptorsLimit()
-	}
 
 	c := devsync.NewConfig()
 
