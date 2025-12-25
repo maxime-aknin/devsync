@@ -51,9 +51,9 @@ func NewConfig() *config {
 		c.Root = "../" + c.Root
 	}
 
-	// add a / at beginning of watch dirs path if needed
+	// add a / at beginning of watch dirs path if needed (but preserve relative paths starting with ..)
 	for i := 0; i < len(c.Paths); i++ {
-		if 0 != strings.Index(c.Paths[i], "/") {
+		if 0 != strings.Index(c.Paths[i], "/") && 0 != strings.Index(c.Paths[i], "..") {
 			c.Paths[i] = "/" + c.Paths[i]
 		}
 	}

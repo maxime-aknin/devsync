@@ -48,9 +48,24 @@ func Watch(watch_path string, c *config, ch chan<- []byte) {
 	ext := path.Ext(watch_path)
 	var watch_dir string
 	if len(ext) > 0 {
-		watch_dir = root_dir + path.Dir(watch_path)
+		// Handle paths with extensions (e.g., **/*.css or ../dir/**/*.js)
+		dir := path.Dir(watch_path)
+		if strings.HasPrefix(watch_path, "..") {
+			// Relative path - use filepath.Join to properly resolve
+			watch_dir = filepath.Join(root_dir, dir)
+		} else {
+			// Absolute path - simple concatenation
+			watch_dir = root_dir + dir
+		}
 	} else {
-		watch_dir = root_dir + watch_path
+		// Handle directory paths
+		if strings.HasPrefix(watch_path, "..") {
+			// Relative path - use filepath.Join to properly resolve
+			watch_dir = filepath.Join(root_dir, watch_path)
+		} else {
+			// Absolute path - simple concatenation
+			watch_dir = root_dir + watch_path
+		}
 	}
 
 	// support **/*.ext globs
