@@ -1,3 +1,5 @@
+// +build linux darwin
+
 package devsync
 
 import (
@@ -7,6 +9,7 @@ import (
 	"runtime"
 	"syscall"
 )
+
 
 // (macos) run sysctl -a | grep ^kern.max to see initial sysctl values
 const MAX_FILES = 20000

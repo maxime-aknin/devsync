@@ -64,7 +64,7 @@ func Watch(watch_path string, c *config, ch chan<- []byte) {
 	// check watch dir exists
 	_, err := os.Stat(watch_dir)
 	if err != nil {
-		fmt.Println("Warning: cannot watch " + watch_path + ". Please check that it exists.")
+		fmt.Println("Warning: cannot watch " + watch_dir + ". Please check that it exists.")
 		return
 		// log.Fatal(err)
 	}

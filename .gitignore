@@ -9,3 +9,4 @@ web/css/*
 node_modules
 yarn.lock
 /vendor
+release
